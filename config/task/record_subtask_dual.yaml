@@ -1,0 +1,98 @@
+task_name: "Put the fruits onto the board."
+num_episodes: 200
+sleep_dt: 0.0001
+max_steps: 10000
+
+
+# 相机列表，顺序会决定features里image的name
+camera_names: ["3rd", "wrist_cam_right","wrist_cam_left"]
+
+# -----------------------
+# LeRobotDataset 配置
+# -----------------------
+is_save_hdf5: False
+dataset_type: "lerobot"
+dataset:
+  repo_id: "kelo234/single_apple"        # HF repo 或者随意填
+  robot_type: "piper"
+  fps: 30
+  image_writer_threads: 16
+  image_writer_processes: 0
+  local_files_only: True
+  lerobot_dataset_path: "/sda1/lerobot/data/single_arm_apple_0529_1"
+  hdf5_dataset_path: "/media/jiziheng/UD210/lerobot/data/single_arm_apple_0529_1"
+  features:
+    action:
+      dtype: "float32"
+      shape: [7,]               # len(data_dict['observations']['actions'][0])
+      names: ["action"]
+    observation.state:
+      dtype: "float32"
+      shape: [7,]               # len(data_dict['observations']['qpos'][0])
+      names: ["state"]
+    observation.images.3rd: # same with camera_names
+      dtype: "image"
+      shape: [800, 1280, 3]
+      names: ["height", "width", "channel"]
+    observation.images.wrist: # same with camera_names
+      dtype: "image"
+      shape: [800, 1280, 3]
+      names: ["height", "width", "channel"]
+
+sub_tasks:
+  # -------- 1. 把水果依次放到托板上 ------------------------------------
+  - name: place_fruits_on_board
+    arm_sequence:
+      # 抓苹果
+      - id: pick_apple
+        arm: arm
+        site: apple_top_site
+        pre_action: open
+        action: close
+        enable: 30
+
+      # 放苹果到托板
+      - id: place_apple
+        arm: arm
+        site: board_left_site
+        pre_action: close
+        action: close
+        enable: 10 
+        after: pick_apple
+
+      # # 回零位
+      # - id: return0
+      #   arm: arm
+      #   site: zero_site
+      #   pre_action: open
+      #   action: open
+      #   enable: 15
+      #   after: place_apple
+
+      # 抓香蕉
+      # - id: pick_banana
+      #   arm: arm
+      #   site: banana_top_site
+      #   pre_action: open
+      #   action: close
+      #   enable: 40
+      #   after: return
+
+      # # 放香蕉到托板
+      # - id: place_banana
+      #   arm: arm
+      #   site: board_right_site
+      #   pre_action: close
+      #   action: close
+      #   enable: 20
+      #   after: pick_banana
+
+
+      # # 回零位
+      # - id: return1
+      #   arm: arm
+      #   site: zero_site
+      #   pre_action: open
+      #   action: open
+      #   enable: 10
+      #   after: pick_banana

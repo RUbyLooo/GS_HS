@@ -1,0 +1,57 @@
+is_mix: True
+repo_id: "kelo234/test"  # this is fake for loading only
+datasets:
+  - name: single_banana
+    repo_id: "kelo234/single_apple"        # HF repo 或者随意填
+    robot_type: "piper"
+    fps: 30
+    image_writer_threads: 16
+    image_writer_processes: 0
+    lerobot_root: "/sda1/lerobot/data/single_arm_banana_0529_1"
+    hdf5_root: "/media/jiziheng/UD210/lerobot/data/single_arm_apple_0529_1"
+    scene_embedding_pt: /home/jiziheng/Music/gemma/scene_embedding_b.pt
+    subtask_embedding_pt: /home/jiziheng/Music/gemma/subtask_embedding_b.pt
+    # features:
+    #   action:
+    #     dtype: "float32"
+    #     shape: [7,]               # len(data_dict['observations']['actions'][0])
+    #     names: ["action"]
+    #   observation.state:
+    #     dtype: "float32"
+    #     shape: [7,]               # len(data_dict['observations']['qpos'][0])
+    #     names: ["state"]
+    #   observation.images.3rd: # same with camera_names
+    #     dtype: "image"
+    #     shape: [800, 1280, 3]
+    #     names: ["height", "width", "channel"]
+    #   observation.images.wrist: # same with camera_names
+    #     dtype: "image"
+    #     shape: [800, 1280, 3]
+    #     names: ["height", "width", "channel"]
+  - name: single_apple
+    repo_id: "kelo234/single_apple"        # HF repo 或者随意填
+    robot_type: "piper"
+    fps: 30
+    image_writer_threads: 16
+    image_writer_processes: 0
+    lerobot_root: "/sda1/lerobot/data/single_arm_apple_0529_1"
+    hdf5_root: "/media/jiziheng/UD210/lerobot/data/single_arm_apple_0529_1"
+    scene_embedding_pt: /home/jiziheng/Music/gemma/scene_embedding_a.pt
+    subtask_embedding_pt: /home/jiziheng/Music/gemma/subtask_embedding_a.pt
+    # features:
+    #   action:
+    #     dtype: "float32"
+    #     shape: [7,]               # len(data_dict['observations']['actions'][0])
+    #     names: ["action"]
+    #   observation.state:
+    #     dtype: "float32"
+    #     shape: [7,]               # len(data_dict['observations']['qpos'][0])
+    #     names: ["state"]
+    #   observation.images.3rd: # same with camera_names
+    #     dtype: "image"
+    #     shape: [800, 1280, 3]
+    #     names: ["height", "width", "channel"]
+    #   observation.images.wrist: # same with camera_names
+    #     dtype: "image"
+    #     shape: [800, 1280, 3]
+    #     names: ["height", "width", "channel"]

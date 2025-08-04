@@ -1,0 +1,63 @@
+# config.yaml
+
+source_path: "/home/jiziheng/Music/robot/gs_scene/gs_hs/object_recon/dianzuan"
+# ================ 以下是恢复config ================
+# Base directory where all your PLY files live
+need_restore: true
+
+# Relative filenames (these will be joined to source_path)
+original_ply: "point_cloud.ply"
+segmented_ply: "gt_gs.ply"
+
+# Names of the output PLYs (again, relative to source_path)
+seg_res_ply: "gt_gs_res.ply"
+trans_res_ply: "1louzhuozi.ply"
+
+# Flags to control behavior
+restore_seg: true
+restore_trans: false
+
+# Uniform scale factor
+scale_factor: 1.0
+
+# 4×4 transformation matrix (each list is one row)
+transform: |
+   0.999391 -0.034899 0.000000 0.000000
+    0.034899 0.999391 0.000000 0.000000
+    0.000000 0.000000 1.000000 0.000000
+    0.000000 0.000000 0.000000 1.000000
+
+# ================ 以下是合并config ================
+need_merge: false
+# ================ Ply1 config ================
+ply1:
+  # 原始文件（绝对路径或相对路径也行，只要在脚本里拼接得上）
+  path: "1lou_0527_seg_res.ply"
+
+  # 如果需要对 ply1 先做一次平移/旋转，设置为 true，否则 false
+  apply_trans: false
+  keep_transformed: false
+
+  # 如果 apply: true，要写 4×4 矩阵：
+  matrix: |
+    1.000000 0.000000 0.000000  0.0000
+    0.000000 1.000000 0.000000  0.0000
+    0.000000 0.000000 1.000000  0.0000
+    0.000000 0.000000 0.000000  1.0000
+
+# ================ Ply2 config ================
+ply2:
+  # 原始文件（绝对路径或相对路径也行，只要在脚本里拼接得上）
+  path: "2lou_0604_seg_res.ply"
+
+  # 如果需要对 ply1 先做一次平移/旋转，设置为 true，否则 false
+  apply_trans: true
+  keep_transformed: false
+
+  # 如果 apply: true，要写 4×4 矩阵：
+  matrix: |
+    1.000000 0.000000 0.000000  0.0000
+    0.000000 1.000000 0.000000  0.0000
+    0.000000 0.000000 1.000000  1.0000
+    0.000000 0.000000 0.000000  1.0000
+
