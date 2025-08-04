@@ -69,9 +69,9 @@ class SimSinglePiper(Robot):
         # create env
         self.cfg = EasyDict({
             "mujoco_config": {
-                "model_path": "/home/ubuntu/mujoco_il_rl/model_assets/piper_on_desk/scene.xml",
+                "model_path": "/home/ubuntu/GS_HS/model_assets/piper_on_desk/scene.xml",
             },
-            "sim_mode": "inference",
+            "sim_mode": "record",
             "camera_names": ["wrist_cam", "3rd"],
         })
 
