@@ -53,8 +53,18 @@ python -m lerobot.inference \
 --task="Grab the cube" \
 --ckpt_path=/home/ubuntu/Documents/checkpoint_il/act_ckpt_with3rd_gripperenhance_500000/best_model/pretrained_model
 
-训练200，000步时结果
+-----------------------------------------增强抓取以后--------------------------------------
+python -m lerobot.inference \
+--robot.type=sim_single_piper \
+--robot.port=" " \
+--robot.id=sim_single_piper_robot \
+--policy.type=act \
+--task="Grab the cube" \
+--ckpt_path= /home/ubuntu/Documents/checkpoint/ACT/best_model/pretrained_model
 
-训练300，000步时结果
-
-训练500，000步时结果
+--robot.type=sim_single_piper 
+--robot.port=" " 
+--robot.id=sim_single_piper_robot 
+--policy.type=act 
+--task="Grab the cube" 
+--ckpt_path=/home/ubuntu/Documents/checkpoint/ACT/best_model/pretrained_model
