@@ -430,7 +430,7 @@ class ACT(nn.Module):
                 vae_encoder_input = [cls_embed, robot_state_embed, action_embed]  # (B, S+2, D)
             else:
                 vae_encoder_input = [cls_embed, action_embed]
-            vae_encoder_input = torch.cat(vae_encoder_input, axis=1)
+            vae_encoder_input = torch.cat(vae_encoder_input, axis=1) # TODO:现在的VAE encoder是102维，需要叠加图像，了解图像token维数
 
             # Prepare fixed positional embedding.
             # Note: detach() shouldn't be necessary but leaving it the same as the original code just in case.

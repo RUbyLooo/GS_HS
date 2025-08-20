@@ -189,20 +189,16 @@ def train(cfg: TrainPipelineConfig):
             name= name,
             delta_timestamps=resolve_delta_timestamps(cfg.policy, ds_meta),
             image_transforms=image_transforms,
-            scene_pt_list=[d.scene_embedding_pt for d in ds_cfgs],
-            subtask_pt_list=[d.subtask_embedding_pt for d in ds_cfgs],
             video_backend=cfg.dataset.video_backend,
         )
 
         for i, ds_cfg in enumerate(ds_cfgs):
             name = ds_cfg.name
-            scene_path   = offline_dataset.scene_pt_list[i]
-            subtask_path = offline_dataset.subtask_pt_list[i]
+            # scene_path   = offline_dataset.scene_pt_list[i]
+            # subtask_path = offline_dataset.subtask_pt_list[i]
 
             logging.info(
                 f"[Dataset '{name}']\n"
-                f"  scene_pt:   {scene_path!r} \n"
-                f"  subtask_pt: {subtask_path!r}"
             )
     else:
         # ds_cfg = cfg.datasets.datasets[0]
