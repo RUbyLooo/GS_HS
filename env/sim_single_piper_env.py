@@ -152,7 +152,7 @@ class SinglePiperEnv(BaseMujocoGSWorker):
         """
         # 获取仿真数据（内部已处理线程状态和锁）
         sim_data = self.get_latest_sim_data()
-        # print("sim_data", sim_data)
+        print("sim_data", sim_data)
 
         # 如果 sim_data 为空（例如线程没启动或未运行），直接返回空
         if not sim_data:
@@ -411,7 +411,7 @@ class SinglePiperEnv(BaseMujocoGSWorker):
             for i in range(5):
                 target_joints_state_np = np.array([
                     [target_joints_state[0], target_joints_state[1], target_joints_state[2],
-                     target_joints_state[3], target_joints_state[4], target_joints_state[5],
+                     target_joints_state[3]+ np.random.normal(0, 0.1), target_joints_state[4]+ np.random.normal(0, 0.1), target_joints_state[5]+ np.random.normal(0, 0.1),
                      0.035]])
                 path_total = np.vstack([path_total, target_joints_state_np])
                 if index_1 > 75:
@@ -907,9 +907,6 @@ class SinglePiperEnv(BaseMujocoGSWorker):
 
         return K
 
-
-
-
     def reset(self):
         """
         重置目标位置,机械臂关节回零。
@@ -928,7 +925,8 @@ class SinglePiperEnv(BaseMujocoGSWorker):
                 radius = np.sqrt(0.28745)  # 0.53619m
                 theta = np.random.uniform(-np.pi / 2, np.pi / 2)
                 # # theta = -1.3
-                rho = radius * np.random.uniform(0.56, 1)
+                # rho = radius * np.random.uniform(0.56, 1)
+                rho = 0.8 * radius
                 # # 近处点
                 # rho = radius * np.random.uniform(0.56, 0.7)
 

@@ -182,6 +182,7 @@ def record_loop(
     # 规划
     with robot.env.desired_action_lock:
         robot.env.desired_path = robot.env.run_before()
+        print("robot.env.desired_path",robot.env.desired_path)
         if robot.env.desired_path is not None:
             print(f" desired_path plan successfully, length: {len(robot.env.desired_path)}")
     # 恢复物理线程
@@ -197,6 +198,7 @@ def record_loop(
         sim_action=np.ones(7)
         # sent_action = robot.sim_action(sim_action=sim_action)
         observation = robot.get_observation()
+        # print(observation)
 
         if dataset is not None:
             observation_frame = build_dataset_frame(dataset.features, observation, prefix="observation")

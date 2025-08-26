@@ -60,11 +60,20 @@ python -m lerobot.inference \
 --robot.id=sim_single_piper_robot \
 --policy.type=act \
 --task="Grab the cube" \
---ckpt_path= /home/ubuntu/Documents/checkpoint/ACT/best_model/pretrained_model
+--ckpt_path=/home/ubuntu/Documents/checkpoint/ACT/debug_act_ckpt/best_model/pretrained_model
 
 --robot.type=sim_single_piper 
 --robot.port=" " 
 --robot.id=sim_single_piper_robot 
 --policy.type=act 
 --task="Grab the cube" 
---ckpt_path=/home/ubuntu/Documents/checkpoint/ACT/best_model/pretrained_model
+--ckpt_path=/home/ubuntu/Documents/checkpoint/ACT/debug_act_ckpt/best_model/pretrained_model
+
+-----------------------------------------diffusion训练结果--------------------------------------
+python -m lerobot.inference \
+--robot.type=sim_single_piper \
+--robot.port=" " \
+--robot.id=sim_single_piper_robot \
+--policy.type=diffusion \
+--task="Grab the cube" \
+--ckpt_path=/home/ubuntu/Documents/checkpoint/diffusion/diffusion_withoutbanana_fixtedradius_succeedstop_enhance/best_model/pretrained_model

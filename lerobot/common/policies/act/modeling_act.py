@@ -325,6 +325,11 @@ class ACT(nn.Module):
             num_input_token_encoder = 1 + config.chunk_size
             if self.config.robot_state_feature:
                 num_input_token_encoder += 1
+            if self.config.image_features:
+
+                # For a list of images, the H and W may vary but H*W is constant.
+                for img in self.config.image_features:
+                    num_input_token_encoder += 300
             self.register_buffer(
                 "vae_encoder_pos_enc",
                 create_sinusoidal_pos_embedding(num_input_token_encoder, config.dim_model).unsqueeze(0),
@@ -415,23 +420,40 @@ class ACT(nn.Module):
         else:
             batch_size = batch["observation.environment_state"].shape[0]
 
-        # Prepare the latent for input to the transformer encoder.
+        # CVAE encoder
         if self.config.use_vae and "action" in batch:
-            # Prepare the input to the VAE encoder: [cls, *joint_space_configuration, *action_sequence].
+            # VAE encoder输入: [cls, *关节当前值, *图像当前值, *轨迹真值].
+            # cls token，用于分类
             cls_embed = einops.repeat(
                 self.vae_encoder_cls_embed.weight, "1 d -> b 1 d", b=batch_size
-            )  # (B, 1, D)
+            )
+            # 轨迹真值，100，过一个线性层编码
+            vae_encoder_in_tokens = [cls_embed]
+            vae_encoder_in_tokens.append(self.vae_encoder_action_input_proj(batch["action"]))
+
+            # 关节当前值，过一个线性层编码
             if self.config.robot_state_feature:
                 robot_state_embed = self.vae_encoder_robot_state_input_proj(batch["observation.state"])
                 robot_state_embed = robot_state_embed.unsqueeze(1)  # (B, 1, D)
-            action_embed = self.vae_encoder_action_input_proj(batch["action"])  # (B, S, D)
+                vae_encoder_in_tokens.append(robot_state_embed)
 
-            if self.config.robot_state_feature:
-                vae_encoder_input = [cls_embed, robot_state_embed, action_embed]  # (B, S+2, D)
-            else:
-                vae_encoder_input = [cls_embed, action_embed]
-            vae_encoder_input = torch.cat(vae_encoder_input, axis=1) # TODO:现在的VAE encoder是102维，需要叠加图像，了解图像token维数
+            # 当前图像层， 过一个backbone
+            if self.config.image_features:
+                all_cam_features = []
+                # all_cam_pos_embeds = []
 
+                # For a list of images, the H and W may vary but H*W is constant.
+                for img in batch["observation.images"]:
+                    cam_features = self.backbone(img)["feature_map"]
+                    # cam_pos_embed = self.encoder_cam_feat_pos_embed(cam_features).to(dtype=cam_features.dtype)
+                    cam_features = self.encoder_img_feat_input_proj(cam_features)
+
+                    cam_features = einops.rearrange(cam_features, "b c h w -> b (h w) c")
+                    # cam_pos_embed = einops.rearrange(cam_pos_embed, "b c h w -> b (h w) c")
+
+                    vae_encoder_in_tokens.append(cam_features)
+
+            vae_encoder_in_tokens = torch.cat(vae_encoder_in_tokens, axis=1)
             # Prepare fixed positional embedding.
             # Note: detach() shouldn't be necessary but leaving it the same as the original code just in case.
             pos_embed = self.vae_encoder_pos_enc.clone().detach()  # (1, S+2, D)
@@ -444,15 +466,12 @@ class ACT(nn.Module):
                 False,
                 device=batch["observation.state"].device,
             )
-            key_padding_mask = torch.cat(
-                [cls_joint_is_pad, batch["action_is_pad"]], axis=1
-            )  # (bs, seq+1 or 2)
 
             # Forward pass through VAE encoder to get the latent PDF parameters.
             cls_token_out = self.vae_encoder(
-                vae_encoder_input.permute(1, 0, 2),
+                vae_encoder_in_tokens.permute(1, 0, 2),
                 pos_embed=pos_embed.permute(1, 0, 2),
-                key_padding_mask=key_padding_mask,
+                # key_padding_mask=key_padding_mask,
             )[0]  # select the class token, with shape (B, D)
             latent_pdf_params = self.vae_encoder_latent_output_proj(cls_token_out)
             mu = latent_pdf_params[:, : self.config.latent_dim]
@@ -492,7 +511,7 @@ class ACT(nn.Module):
                 cam_pos_embed = self.encoder_cam_feat_pos_embed(cam_features).to(dtype=cam_features.dtype)
                 cam_features = self.encoder_img_feat_input_proj(cam_features)
 
-                # Rearrange features to (sequence, batch, dim).
+                # torch.Size([300, 4, 512])
                 cam_features = einops.rearrange(cam_features, "b c h w -> (h w) b c")
                 cam_pos_embed = einops.rearrange(cam_pos_embed, "b c h w -> (h w) b c")
 
