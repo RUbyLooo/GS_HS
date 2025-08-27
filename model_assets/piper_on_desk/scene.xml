@@ -150,40 +150,41 @@
 
     <body name="apple" pos="-0.02 -0.27 0.768">
       <joint name = "apple" type="free"/>
+      <inertial pos="0 0 0" quat="1 0 0 0" mass="0.015" diaginertia="0.000015 0.000015 0.0000096"/>
       <site rgba="1 0 0 1" size="0.005" pos="0 -0 -0" name="apple_site"/>
-      <geom solimp="0.998 0.998 0.001" solref="0.001 1" density="100" friction="1 1 1" type="mesh" mesh="apple_model_normalized_0_vis" conaffinity="0" contype="0" group="1" material="apple_defaultMat.011"/>
-      <geom solimp="0.998 0.998 0.001" solref="0.001 1" density="100" friction="1 1 1" type="mesh" mesh="apple_model_normalized_collision_22._coll" group="0" rgba="0.8 0.8 0.8 0.0"/>
-      <geom solimp="0.998 0.998 0.001" solref="0.001 1" density="100" friction="1 1 1" type="mesh" mesh="apple_model_normalized_collision_23._coll" group="0" rgba="0.8 0.8 0.8 0.0"/>
-      <geom solimp="0.998 0.998 0.001" solref="0.001 1" density="100" friction="1 1 1" type="mesh" mesh="apple_model_normalized_collision_21._coll" group="0" rgba="0.8 0.8 0.8 0.0"/>
-      <geom solimp="0.998 0.998 0.001" solref="0.001 1" density="100" friction="1 1 1" type="mesh" mesh="apple_model_normalized_collision_20._coll" group="0" rgba="0.8 0.8 0.8 0.0"/>
-      <geom solimp="0.998 0.998 0.001" solref="0.001 1" density="100" friction="1 1 1" type="mesh" mesh="apple_model_normalized_collision_24._coll" group="0" rgba="0.8 0.8 0.8 0.0"/>
-      <geom solimp="0.998 0.998 0.001" solref="0.001 1" density="100" friction="1 1 1" type="mesh" mesh="apple_model_normalized_collision_30._coll" group="0" rgba="0.8 0.8 0.8 0.0"/>
-      <geom solimp="0.998 0.998 0.001" solref="0.001 1" density="100" friction="1 1 1" type="mesh" mesh="apple_model_normalized_collision_18._coll" group="0" rgba="0.8 0.8 0.8 0.0"/>
-      <geom solimp="0.998 0.998 0.001" solref="0.001 1" density="100" friction="1 1 1" type="mesh" mesh="apple_model_normalized_collision_19._coll" group="0" rgba="0.8 0.8 0.8 0.0"/>
-      <geom solimp="0.998 0.998 0.001" solref="0.001 1" density="100" friction="1 1 1" type="mesh" mesh="apple_model_normalized_collision_31._coll" group="0" rgba="0.8 0.8 0.8 0.0"/>
-      <geom solimp="0.998 0.998 0.001" solref="0.001 1" density="100" friction="1 1 1" type="mesh" mesh="apple_model_normalized_collision_25._coll" group="0" rgba="0.8 0.8 0.8 0.0"/>
-      <geom solimp="0.998 0.998 0.001" solref="0.001 1" density="100" friction="1 1 1" type="mesh" mesh="apple_model_normalized_collision_27._coll" group="0" rgba="0.8 0.8 0.8 0.0"/>
-      <geom solimp="0.998 0.998 0.001" solref="0.001 1" density="100" friction="1 1 1" type="mesh" mesh="apple_model_normalized_collision_26._coll" group="0" rgba="0.8 0.8 0.8 0.0"/>
-      <geom solimp="0.998 0.998 0.001" solref="0.001 1" density="100" friction="1 1 1" type="mesh" mesh="apple_model_normalized_collision_9._coll" group="0" rgba="0.8 0.8 0.8 0.0"/>
-      <geom solimp="0.998 0.998 0.001" solref="0.001 1" density="100" friction="1 1 1" type="mesh" mesh="apple_model_normalized_collision_8._coll" group="0" rgba="0.8 0.8 0.8 0.0"/>
-      <geom solimp="0.998 0.998 0.001" solref="0.001 1" density="100" friction="1 1 1" type="mesh" mesh="apple_model_normalized_collision_6._coll" group="0" rgba="0.8 0.8 0.8 0.0"/>
-      <geom solimp="0.998 0.998 0.001" solref="0.001 1" density="100" friction="1 1 1" type="mesh" mesh="apple_model_normalized_collision_7._coll" group="0" rgba="0.8 0.8 0.8 0.0"/>
-      <geom solimp="0.998 0.998 0.001" solref="0.001 1" density="100" friction="1 1 1" type="mesh" mesh="apple_model_normalized_collision_5._coll" group="0" rgba="0.8 0.8 0.8 0.0"/>
-      <geom solimp="0.998 0.998 0.001" solref="0.001 1" density="100" friction="1 1 1" type="mesh" mesh="apple_model_normalized_collision_4._coll" group="0" rgba="0.8 0.8 0.8 0.0"/>
-      <geom solimp="0.998 0.998 0.001" solref="0.001 1" density="100" friction="1 1 1" type="mesh" mesh="apple_model_normalized_collision_0._coll" group="0" rgba="0.8 0.8 0.8 0.0"/>
-      <geom solimp="0.998 0.998 0.001" solref="0.001 1" density="100" friction="1 1 1" type="mesh" mesh="apple_model_normalized_collision_1._coll" group="0" rgba="0.8 0.8 0.8 0.0"/>
-      <geom solimp="0.998 0.998 0.001" solref="0.001 1" density="100" friction="1 1 1" type="mesh" mesh="apple_model_normalized_collision_3._coll" group="0" rgba="0.8 0.8 0.8 0.0"/>
-      <geom solimp="0.998 0.998 0.001" solref="0.001 1" density="100" friction="1 1 1" type="mesh" mesh="apple_model_normalized_collision_2._coll" group="0" rgba="0.8 0.8 0.8 0.0"/>
-      <geom solimp="0.998 0.998 0.001" solref="0.001 1" density="100" friction="1 1 1" type="mesh" mesh="apple_model_normalized_collision_17._coll" group="0" rgba="0.8 0.8 0.8 0.0"/>
-      <geom solimp="0.998 0.998 0.001" solref="0.001 1" density="100" friction="1 1 1" type="mesh" mesh="apple_model_normalized_collision_16._coll" group="0" rgba="0.8 0.8 0.8 0.0"/>
-      <geom solimp="0.998 0.998 0.001" solref="0.001 1" density="100" friction="1 1 1" type="mesh" mesh="apple_model_normalized_collision_28._coll" group="0" rgba="0.8 0.8 0.8 0.0"/>
-      <geom solimp="0.998 0.998 0.001" solref="0.001 1" density="100" friction="1 1 1" type="mesh" mesh="apple_model_normalized_collision_14._coll" group="0" rgba="0.8 0.8 0.8 0.0"/>
-      <geom solimp="0.998 0.998 0.001" solref="0.001 1" density="100" friction="1 1 1" type="mesh" mesh="apple_model_normalized_collision_15._coll" group="0" rgba="0.8 0.8 0.8 0.0"/>
-      <geom solimp="0.998 0.998 0.001" solref="0.001 1" density="100" friction="1 1 1" type="mesh" mesh="apple_model_normalized_collision_29._coll" group="0" rgba="0.8 0.8 0.8 0.0"/>
-      <geom solimp="0.998 0.998 0.001" solref="0.001 1" density="100" friction="1 1 1" type="mesh" mesh="apple_model_normalized_collision_11._coll" group="0" rgba="0.8 0.8 0.8 0.0"/>
-      <geom solimp="0.998 0.998 0.001" solref="0.001 1" density="100" friction="1 1 1" type="mesh" mesh="apple_model_normalized_collision_10._coll" group="0" rgba="0.8 0.8 0.8 0.0"/>
-      <geom solimp="0.998 0.998 0.001" solref="0.001 1" density="100" friction="1 1 1" type="mesh" mesh="apple_model_normalized_collision_12._coll" group="0" rgba="0.8 0.8 0.8 0.0"/>
-      <geom solimp="0.998 0.998 0.001" solref="0.001 1" density="100" friction="1 1 1" type="mesh" mesh="apple_model_normalized_collision_13._coll" group="0" rgba="0.8 0.8 0.8 0.0"/>
+      <geom solimp="0.998 0.998 0.001" solref="0.001 1"  friction="2 2 2" type="mesh" mesh="apple_model_normalized_0_vis" conaffinity="0" contype="0" group="1" material="apple_defaultMat.011"/>
+      <geom solimp="0.998 0.998 0.001" solref="0.001 1"  friction="2 2 2" type="mesh" mesh="apple_model_normalized_collision_22._coll" group="0" rgba="0.8 0.8 0.8 0.0"/>
+      <geom solimp="0.998 0.998 0.001" solref="0.001 1"  friction="2 2 2" type="mesh" mesh="apple_model_normalized_collision_23._coll" group="0" rgba="0.8 0.8 0.8 0.0"/>
+      <geom solimp="0.998 0.998 0.001" solref="0.001 1"  friction="2 2 2" type="mesh" mesh="apple_model_normalized_collision_21._coll" group="0" rgba="0.8 0.8 0.8 0.0"/>
+      <geom solimp="0.998 0.998 0.001" solref="0.001 1"  friction="2 2 2" type="mesh" mesh="apple_model_normalized_collision_20._coll" group="0" rgba="0.8 0.8 0.8 0.0"/>
+      <geom solimp="0.998 0.998 0.001" solref="0.001 1"  friction="2 2 2" type="mesh" mesh="apple_model_normalized_collision_24._coll" group="0" rgba="0.8 0.8 0.8 0.0"/>
+      <geom solimp="0.998 0.998 0.001" solref="0.001 1"  friction="2 2 2" type="mesh" mesh="apple_model_normalized_collision_30._coll" group="0" rgba="0.8 0.8 0.8 0.0"/>
+      <geom solimp="0.998 0.998 0.001" solref="0.001 1"  friction="2 2 2" type="mesh" mesh="apple_model_normalized_collision_18._coll" group="0" rgba="0.8 0.8 0.8 0.0"/>
+      <geom solimp="0.998 0.998 0.001" solref="0.001 1"  friction="2 2 2" type="mesh" mesh="apple_model_normalized_collision_19._coll" group="0" rgba="0.8 0.8 0.8 0.0"/>
+      <geom solimp="0.998 0.998 0.001" solref="0.001 1"  friction="2 2 2" type="mesh" mesh="apple_model_normalized_collision_31._coll" group="0" rgba="0.8 0.8 0.8 0.0"/>
+      <geom solimp="0.998 0.998 0.001" solref="0.001 1"  friction="2 2 2" type="mesh" mesh="apple_model_normalized_collision_25._coll" group="0" rgba="0.8 0.8 0.8 0.0"/>
+      <geom solimp="0.998 0.998 0.001" solref="0.001 1"  friction="2 2 2" type="mesh" mesh="apple_model_normalized_collision_27._coll" group="0" rgba="0.8 0.8 0.8 0.0"/>
+      <geom solimp="0.998 0.998 0.001" solref="0.001 1"  friction="2 2 2" type="mesh" mesh="apple_model_normalized_collision_26._coll" group="0" rgba="0.8 0.8 0.8 0.0"/>
+      <geom solimp="0.998 0.998 0.001" solref="0.001 1"  friction="2 2 2" type="mesh" mesh="apple_model_normalized_collision_9._coll" group="0" rgba="0.8 0.8 0.8 0.0"/>
+      <geom solimp="0.998 0.998 0.001" solref="0.001 1"  friction="2 2 2" type="mesh" mesh="apple_model_normalized_collision_8._coll" group="0" rgba="0.8 0.8 0.8 0.0"/>
+      <geom solimp="0.998 0.998 0.001" solref="0.001 1"  friction="2 2 2" type="mesh" mesh="apple_model_normalized_collision_6._coll" group="0" rgba="0.8 0.8 0.8 0.0"/>
+      <geom solimp="0.998 0.998 0.001" solref="0.001 1"  friction="2 2 2" type="mesh" mesh="apple_model_normalized_collision_7._coll" group="0" rgba="0.8 0.8 0.8 0.0"/>
+      <geom solimp="0.998 0.998 0.001" solref="0.001 1"  friction="2 2 2" type="mesh" mesh="apple_model_normalized_collision_5._coll" group="0" rgba="0.8 0.8 0.8 0.0"/>
+      <geom solimp="0.998 0.998 0.001" solref="0.001 1"  friction="2 2 2" type="mesh" mesh="apple_model_normalized_collision_4._coll" group="0" rgba="0.8 0.8 0.8 0.0"/>
+      <geom solimp="0.998 0.998 0.001" solref="0.001 1"  friction="2 2 2" type="mesh" mesh="apple_model_normalized_collision_0._coll" group="0" rgba="0.8 0.8 0.8 0.0"/>
+      <geom solimp="0.998 0.998 0.001" solref="0.001 1"  friction="2 2 2" type="mesh" mesh="apple_model_normalized_collision_1._coll" group="0" rgba="0.8 0.8 0.8 0.0"/>
+      <geom solimp="0.998 0.998 0.001" solref="0.001 1"  friction="2 2 2" type="mesh" mesh="apple_model_normalized_collision_3._coll" group="0" rgba="0.8 0.8 0.8 0.0"/>
+      <geom solimp="0.998 0.998 0.001" solref="0.001 1"  friction="2 2 2" type="mesh" mesh="apple_model_normalized_collision_2._coll" group="0" rgba="0.8 0.8 0.8 0.0"/>
+      <geom solimp="0.998 0.998 0.001" solref="0.001 1"  friction="2 2 2" type="mesh" mesh="apple_model_normalized_collision_17._coll" group="0" rgba="0.8 0.8 0.8 0.0"/>
+      <geom solimp="0.998 0.998 0.001" solref="0.001 1"  friction="2 2 2" type="mesh" mesh="apple_model_normalized_collision_16._coll" group="0" rgba="0.8 0.8 0.8 0.0"/>
+      <geom solimp="0.998 0.998 0.001" solref="0.001 1"  friction="2 2 2" type="mesh" mesh="apple_model_normalized_collision_28._coll" group="0" rgba="0.8 0.8 0.8 0.0"/>
+      <geom solimp="0.998 0.998 0.001" solref="0.001 1"  friction="2 2 2" type="mesh" mesh="apple_model_normalized_collision_14._coll" group="0" rgba="0.8 0.8 0.8 0.0"/>
+      <geom solimp="0.998 0.998 0.001" solref="0.001 1"  friction="2 2 2" type="mesh" mesh="apple_model_normalized_collision_15._coll" group="0" rgba="0.8 0.8 0.8 0.0"/>
+      <geom solimp="0.998 0.998 0.001" solref="0.001 1"  friction="2 2 2" type="mesh" mesh="apple_model_normalized_collision_29._coll" group="0" rgba="0.8 0.8 0.8 0.0"/>
+      <geom solimp="0.998 0.998 0.001" solref="0.001 1"  friction="2 2 2" type="mesh" mesh="apple_model_normalized_collision_11._coll" group="0" rgba="0.8 0.8 0.8 0.0"/>
+      <geom solimp="0.998 0.998 0.001" solref="0.001 1"  friction="2 2 2" type="mesh" mesh="apple_model_normalized_collision_10._coll" group="0" rgba="0.8 0.8 0.8 0.0"/>
+      <geom solimp="0.998 0.998 0.001" solref="0.001 1"  friction="2 2 2" type="mesh" mesh="apple_model_normalized_collision_12._coll" group="0" rgba="0.8 0.8 0.8 0.0"/>
+      <geom solimp="0.998 0.998 0.001" solref="0.001 1"  friction="2 2 2" type="mesh" mesh="apple_model_normalized_collision_13._coll" group="0" rgba="0.8 0.8 0.8 0.0"/>
     </body>
 
 
