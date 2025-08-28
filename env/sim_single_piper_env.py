@@ -50,6 +50,7 @@ class SinglePiperEnv(BaseMujocoGSWorker):
         self.a = [0, 0, 0.28503, -0.02198, 0, 0]  # 连杆长度
         self.d = [0.123, 0, 0, 0.25075, 0, 0.091]  # 连杆偏移
         self.theta_offset = [0, -172.2135102 * pi / 180, -102.7827493 * pi / 180, 0, 0, 0]  # 初始角度偏移
+        self.i = 0
 
     def _get_body_pose(self, body_name: str) -> np.ndarray:
         """
@@ -152,7 +153,7 @@ class SinglePiperEnv(BaseMujocoGSWorker):
         """
         # 获取仿真数据（内部已处理线程状态和锁）
         sim_data = self.get_latest_sim_data()
-        # print("sim_data", sim_data)
+        print("sim_data", sim_data)
 
         # 如果 sim_data 为空（例如线程没启动或未运行），直接返回空
         if not sim_data:
@@ -413,19 +414,44 @@ class SinglePiperEnv(BaseMujocoGSWorker):
                     [target_joints_state[0], target_joints_state[1], target_joints_state[2],
                      target_joints_state[3], target_joints_state[4], target_joints_state[5],
                      0.035]])
+                # # joint noise
+                # target_joints_state_np = np.array([
+                #     [target_joints_state[0], target_joints_state[1], target_joints_state[2],
+                #      target_joints_state[3]+ np.random.normal(0, 0.1), 
+                #      target_joints_state[4]+ np.random.normal(0, 0.1), 
+                #      target_joints_state[5]+ np.random.normal(0, 0.1),
+                #      0.035]])
                 path_total = np.vstack([path_total, target_joints_state_np])
-                if index_1 > 75:
-                    path_total = np.vstack([path_total, target_joints_state_np])
-                    path_total = np.vstack([path_total, target_joints_state_np])
+            if index_1 > 75:
+                path_total = np.vstack([path_total, target_joints_state_np])
+                path_total = np.vstack([path_total, target_joints_state_np])
+                path_total = np.vstack([path_total, target_joints_state_np])
+                path_total = np.vstack([path_total, target_joints_state_np])
+
+
+        for j in range(500):
+            target_joints_state_np = np.array([
+                [target_joints_state[0], target_joints_state[1], target_joints_state[2]
+                , target_joints_state[3], target_joints_state[4], target_joints_state[5],
+                0.035]])
+            # print(target_joints_state_np)
+            path_total = np.vstack([path_total, target_joints_state_np])
+            path_total = np.vstack([path_total, target_joints_state_np])
 
         # TODO：到达目标位姿，夹爪闭合抓取
         for j in range(1000):
             target_joints_state_np = np.array([
                 [target_joints_state[0], target_joints_state[1], target_joints_state[2]
                     , target_joints_state[3], target_joints_state[4], target_joints_state[5],
-                 - (0.035 / 1000) * j + 0.035]])
+                - (0.035 / 1000) * j + 0.035]])
             # print(target_joints_state_np)
             path_total = np.vstack([path_total, target_joints_state_np])
+            path_total = np.vstack([path_total, target_joints_state_np])
+            # self.data.ctrl[:7] = target_joints_state_np
+            # mujoco.mj_step(self.model, self.data)
+            # # self._set_sim_data(target_joints_state_np)
+            # self.sync()
+            # time.sleep(0.002)
 
         # TODO:抓取成功后，回放之前规划的位姿
         latest_points_world_ee2obj = points_world_ee2obj[:len(points_world_ee2obj) - drop_lens][::-1]
@@ -456,13 +482,29 @@ class SinglePiperEnv(BaseMujocoGSWorker):
             for i in range(integration_time):
                 target_joints_state_np = np.array([
                     [target_joints_state[0], target_joints_state[1], target_joints_state[2],
-                     target_joints_state[3], target_joints_state[4], target_joints_state[5],
-                     0]])
+                    target_joints_state[3], target_joints_state[4], target_joints_state[5],
+                    0]])
                 path_total = np.vstack([path_total, target_joints_state_np])
+                if index_1 < 75:
+                    path_total = np.vstack([path_total, target_joints_state_np])
+                    if index_1 < 50:
+                        path_total = np.vstack([path_total, target_joints_state_np])
+                        if index_1 < 25:
+                            path_total = np.vstack([path_total, target_joints_state_np])
+                            if index_1 < 10:
+                                path_total = np.vstack([path_total, target_joints_state_np])
+                                path_total = np.vstack([path_total, target_joints_state_np])
+
+                # self.data.ctrl[:7] = target_joints_state_np
+                #
+                # mujoco.mj_step(self.model, self.data)
+                # # self._set_sim_data(target_joints_state_np)
+                # self.sync()
+                # time.sleep(0.002)
 
         # TODO:调用RRT规划轨迹位姿，转回起始位姿最终理想关节角
         target_joints_state_sta_end = np.array([0, 1.19, -0.661, 0, 0.781, 0]
-                                               , dtype=float)
+                                            , dtype=float)
 
         for i in range(30):
             path = self.calc_arm_rrt_cubic_traj(target_joints_state_np_sub, target_joints_state_sta_end)
@@ -491,9 +533,14 @@ class SinglePiperEnv(BaseMujocoGSWorker):
                 target_joints_state = path[:6, index]
                 target_joints_state_np = np.array([
                     [target_joints_state[0], target_joints_state[1], target_joints_state[2],
-                     target_joints_state[3], target_joints_state[4], target_joints_state[5],
-                     0]])
+                    target_joints_state[3], target_joints_state[4], target_joints_state[5],
+                    0]])
                 path_total = np.vstack([path_total, target_joints_state_np])
+                # self.data.ctrl[:7] = target_joints_state_np
+                # mujoco.mj_step(self.model, self.data)
+                # # self._set_sim_data(target_joints_state_np)
+                # self.sync()
+                # time.sleep(0.002)
 
             index += 1
 
@@ -506,6 +553,11 @@ class SinglePiperEnv(BaseMujocoGSWorker):
                                                 target_joints_state_sta_end[4], target_joints_state_sta_end[5],
                                                 (0.035 / 1000) * j]])
             path_total = np.vstack([path_total, target_joints_state_np])
+            # self.data.ctrl[:7] = target_joints_state_np
+            # mujoco.mj_step(self.model, self.data)
+            # # self._set_sim_data(target_joints_state_np)
+            # self.sync()
+            # time.sleep(0.002)
 
         # TODO:等待1秒
         for j in range(500):
@@ -514,6 +566,11 @@ class SinglePiperEnv(BaseMujocoGSWorker):
                                                 target_joints_state_sta_end[4], target_joints_state_sta_end[5],
                                                 0.035]])
             path_total = np.vstack([path_total, target_joints_state_np])
+            # self.data.ctrl[:7] = target_joints_state_np
+            # mujoco.mj_step(self.model, self.data)
+            # # self._set_sim_data(target_joints_state_np)
+            # self.sync()
+            # time.sleep(0.002)
 
         # 遍历每一列并进行平滑处理
         for i in range(path_total.shape[1]):
@@ -907,9 +964,6 @@ class SinglePiperEnv(BaseMujocoGSWorker):
 
         return K
 
-
-
-
     def reset(self):
         """
         重置目标位置,机械臂关节回零。
@@ -926,16 +980,13 @@ class SinglePiperEnv(BaseMujocoGSWorker):
                 center_x = -0.25
                 center_y = 0
                 radius = np.sqrt(0.28745)  # 0.53619m
-                theta = np.random.uniform(-np.pi / 2, np.pi / 2)
-                # # theta = -1.3
-                rho = radius * np.random.uniform(0.56, 1)
-                # # 近处点
-                # rho = radius * np.random.uniform(0.56, 0.7)
 
-                # 远处点
-                # # rho = radius * np.random.uniform(0.7, 1)
-                # rho = 0.3511440312011417
-                # theta = 1.0672673841102114
+                theta = PI / 4
+                n_segments = 200
+                rho_range = 0.44  # 总区间长度
+                rho = (0.56 + self.i * (rho_range / n_segments)) * radius
+                self.i += 1
+                print("self.i",self.i)
 
                 # 越过桌子的情况
                 if (theta < -PI / 9 and theta > -PI / 6) or (theta > PI / 9 and theta < PI / 6):

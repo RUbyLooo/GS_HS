@@ -71,8 +71,8 @@ class SimSinglePiper(Robot):
             "mujoco_config": {
                 "model_path": "/home/ubuntu/GS_HS/model_assets/piper_on_desk/scene.xml",
             },
-            # "sim_mode": "record",
-            "sim_mode": "inference",
+            "sim_mode": "record",
+            # "sim_mode": "inference",
             "camera_names": ["wrist_cam", "3rd"],
         })
 
